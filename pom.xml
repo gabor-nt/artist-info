@@ -32,4 +32,29 @@
             <artifactId>rest-assured</artifactId>
         </dependency>
     </dependencies>
+
+    <build>
+        <plugins>
+            <plugin>
+                <groupId>se.eris</groupId>
+                <artifactId>notnull-instrumenter-maven-plugin</artifactId>
+                <version>0.6.8</version>
+                <executions>
+                    <execution>
+                        <id>instrument</id>
+                        <goals>
+                            <goal>instrument</goal>
+                            <goal>tests-instrument</goal>
+                        </goals>
+                    </execution>
+                </executions>
+                <configuration>
+                    <implicit>true</implicit>
+                    <nullable>
+                        <param>org.jetbrains.annotations.Nullable</param>
+                    </nullable>
+                </configuration>
+            </plugin>
+        </plugins>
+    </build>
 </project>

@@ -1,27 +1,28 @@
 package personal.gabornt.artistinfo.model.dto;
 
-import java.util.LinkedList;
 import java.util.List;
 import java.util.UUID;
 
 public class ArtistDetails {
     private final UUID mbid;
-    private List<Album> albums;
+    private final String description;
+    private final List<Album> albums;
 
-    public ArtistDetails(UUID id) {
-        mbid = id;
-        albums = new LinkedList<>();
+    public ArtistDetails(UUID id, String description, List<Album> albums) {
+        this.mbid = id;
+        this.description = description;
+        this.albums = albums;
     }
 
     public UUID getMbid() {
         return mbid;
     }
 
-    public List<Album> getAlbums() {
-        return albums;
+    public String getDescription() {
+        return description;
     }
 
-    public void addAlbum(Album album) {
-        albums.add(album);
+    public List<Album> getAlbums() {
+        return albums;
     }
 }

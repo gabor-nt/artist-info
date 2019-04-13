@@ -15,7 +15,7 @@ import static org.hamcrest.CoreMatchers.equalTo;
 
 @RunWith(SpringRunner.class)
 @SpringBootTest(webEnvironment = SpringBootTest.WebEnvironment.RANDOM_PORT)
-public class ArtistsControllerTest {
+public class ArtistDetailsControllerTest {
     @LocalServerPort
     int port;
 
@@ -27,29 +27,17 @@ public class ArtistsControllerTest {
 
     @Test
     public void getDetailsById() {
-        final UUID testID = UUID.fromString("2b8f1932-e890-4c15-993f-7fa4cc5a8303");
-
-    /*
-    {
-        "mbid" : "5b11f4ce-a62d-471e-81fc-a69a8278c7da",
-        "description" : "<p><b>Nirvana</b> was an American rock band ...bla bla...”,
-        "albums" : [
-            {
-                "title" : "Nevermind",
-                "id": "1b022e01-4da6-387b-8658-8678046e4cef",
-                "Image": "http://coverartarchive.org/release/a146429a-cedc-3ab0-9e41-1aaf5f6cdc2d/3012495605.jpg "
-            },
-        ]
-    }
-     */
+        final UUID testID = UUID.fromString("5b11f4ce-a62d-471e-81fc-a69a8278c7da");
         RestAssured.given()
                 .get("/" + testID)
                 .then()
                 .log().ifValidationFails()
                 .statusCode(HttpStatus.OK.value())
                 .body("mbid", equalTo(testID.toString()))
-                .body("albums[0].title", equalTo("test"))
-                .body("albums[0].Image", equalTo("test"))
+                .body("description", equalTo("<p><b>Nirvana</b> was an American rock band ...bla bla..."))
+                .body("albums[4].id", equalTo("1b022e01-4da6-387b-8658-8678046e4cef"))
+                .body("albums[4].title", equalTo("Nevermind"))
+                .body("albums[4].Image", equalTo("http://coverartarchive.org/release/a146429a-cedc-3ab0-9e41-1aaf5f6cdc2d/3012495605.jpg"))
         ;
     }
 

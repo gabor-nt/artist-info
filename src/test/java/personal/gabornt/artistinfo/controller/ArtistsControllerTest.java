@@ -48,6 +48,8 @@ public class ArtistsControllerTest {
                 .log().ifValidationFails()
                 .statusCode(HttpStatus.OK.value())
                 .body("mbid", equalTo(testID.toString()))
+                .body("albums[0].title", equalTo("test"))
+                .body("albums[0].Image", equalTo("test"))
         ;
     }
 

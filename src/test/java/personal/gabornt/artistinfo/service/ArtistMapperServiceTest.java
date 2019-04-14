@@ -9,16 +9,19 @@ import org.mockito.junit.MockitoJUnitRunner;
 import personal.gabornt.artistinfo.model.dto.Album;
 import personal.gabornt.artistinfo.model.dto.ArtistDetails;
 import personal.gabornt.artistinfo.model.dto.musicbrainz.Artist;
+import personal.gabornt.artistinfo.model.dto.musicbrainz.Relation;
 import personal.gabornt.artistinfo.model.dto.musicbrainz.Release;
+import personal.gabornt.artistinfo.model.dto.musicbrainz.Url;
 import personal.gabornt.artistinfo.repository.CoverArtRepository;
 import personal.gabornt.artistinfo.repository.DescriptionRepository;
 
-import java.util.Arrays;
 import java.util.UUID;
 
+import static java.util.Arrays.asList;
 import static org.hamcrest.CoreMatchers.equalTo;
 import static org.hamcrest.Matchers.hasSize;
 import static org.junit.Assert.assertThat;
+import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.Mockito.when;
 
 @RunWith(MockitoJUnitRunner.class)
@@ -30,7 +33,12 @@ public class ArtistMapperServiceTest {
     private final String dummyImageUrl = "dummyImageUrl";
 
     private final Release testRelease = new Release(testAlbumId, testAlbumTitle);
-    private final Artist testArtist = new Artist(testArtistId, Arrays.asList(testRelease, testRelease, testRelease));
+    private final Relation testRelation = new Relation(Relation.Type.discogs, new Url("discogs"));
+    private final Artist testArtist = new Artist(
+            testArtistId,
+            asList(testRelease, testRelease, testRelease),
+            asList(testRelation, testRelation)
+    );
 
     @Mock
     private DescriptionRepository descriptionRepository;
@@ -43,7 +51,7 @@ public class ArtistMapperServiceTest {
 
     @Before
     public void setup() {
-        when(descriptionRepository.getDescription()).thenReturn(dummyDescription);
+        when(descriptionRepository.getDescription(any())).thenReturn(dummyDescription);
         when(coverArtRepository.getCoverImageUrl(testAlbumId)).thenReturn(dummyImageUrl);
     }
 

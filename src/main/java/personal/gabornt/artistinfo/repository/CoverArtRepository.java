@@ -1,6 +1,7 @@
 package personal.gabornt.artistinfo.repository;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.cache.annotation.Cacheable;
 import org.springframework.stereotype.Repository;
 import personal.gabornt.artistinfo.model.dto.coverartarchive.Image;
 import personal.gabornt.artistinfo.service.CoverArtArchiveWebService;
@@ -17,6 +18,7 @@ public class CoverArtRepository {
         this.webService = webService;
     }
 
+    @Cacheable("covers")
     public String getCoverImageUrl(UUID id) {
         return webService.getCoversForRelease(id).stream()
                 .filter(image -> image.getTypes().contains("Front"))

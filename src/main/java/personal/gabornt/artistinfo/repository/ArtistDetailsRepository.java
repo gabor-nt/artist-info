@@ -1,6 +1,7 @@
 package personal.gabornt.artistinfo.repository;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.cache.annotation.Cacheable;
 import org.springframework.stereotype.Repository;
 import personal.gabornt.artistinfo.model.dto.musicbrainz.Artist;
 import personal.gabornt.artistinfo.service.ArtistMapperService;
@@ -20,6 +21,7 @@ public class ArtistDetailsRepository {
         this.artistMapperService = artistMapperService;
     }
 
+    @Cacheable("artists")
     public ArtistDetails getArtistDetailsById(UUID id) {
         Artist artist = musicBrainzWebService.getArtistById(id);
         return artistMapperService.map(artist);

@@ -10,7 +10,7 @@ import personal.gabornt.artistinfo.model.dto.Album;
 import personal.gabornt.artistinfo.model.dto.ArtistDetails;
 import personal.gabornt.artistinfo.model.dto.musicbrainz.Artist;
 import personal.gabornt.artistinfo.model.dto.musicbrainz.Release;
-import personal.gabornt.artistinfo.repository.CoverImageRepository;
+import personal.gabornt.artistinfo.repository.CoverArtRepository;
 import personal.gabornt.artistinfo.repository.DescriptionRepository;
 
 import java.util.Arrays;
@@ -36,7 +36,7 @@ public class ArtistMapperServiceTest {
     private DescriptionRepository descriptionRepository;
 
     @Mock
-    private CoverImageRepository coverImageRepository;
+    private CoverArtRepository coverArtRepository;
 
     @InjectMocks
     private ArtistMapperService service;
@@ -44,7 +44,7 @@ public class ArtistMapperServiceTest {
     @Before
     public void setup() {
         when(descriptionRepository.getDescription()).thenReturn(dummyDescription);
-        when(coverImageRepository.createImageUrl(testAlbumId)).thenReturn(dummyImageUrl);
+        when(coverArtRepository.getCoverImageUrl(testAlbumId)).thenReturn(dummyImageUrl);
     }
 
     @Test

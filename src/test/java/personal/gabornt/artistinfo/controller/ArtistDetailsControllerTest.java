@@ -31,13 +31,15 @@ public class ArtistDetailsControllerTest {
         RestAssured.given()
                 .get("/" + testID)
                 .then()
-                .log().ifValidationFails()
+                .log().all()
                 .statusCode(HttpStatus.OK.value())
                 .body("mbid", equalTo(testID.toString()))
                 .body("description", equalTo("<p><b>Nirvana</b> was an American rock band ...bla bla..."))
                 .body("albums[4].id", equalTo("1b022e01-4da6-387b-8658-8678046e4cef"))
                 .body("albums[4].title", equalTo("Nevermind"))
-                .body("albums[4].Image", equalTo("http://coverartarchive.org/release/a146429a-cedc-3ab0-9e41-1aaf5f6cdc2d/3012495605.jpg"))
+                .body("albums[4].Image",
+                        equalTo("http://coverartarchive.org/release/a146429a-cedc-3ab0-9e41-1aaf5f6cdc2d/3012495605.jpg")
+                )
         ;
     }
 

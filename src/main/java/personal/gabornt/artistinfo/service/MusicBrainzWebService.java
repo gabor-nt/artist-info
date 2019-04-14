@@ -2,6 +2,8 @@ package personal.gabornt.artistinfo.service;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.web.client.HttpClientErrorException;
+import org.springframework.web.client.HttpServerErrorException;
 import org.springframework.web.client.RestTemplate;
 import personal.gabornt.artistinfo.model.dto.musicbrainz.Artist;
 
@@ -18,6 +20,12 @@ public class MusicBrainzWebService {
     }
 
     public Artist getArtistById(UUID id) {
-        return this.restTemplate.getForObject(String.format(URL_TEMPLATE, id.toString()), Artist.class);
+        try {
+            return this.restTemplate.getForObject(String.format(URL_TEMPLATE, id.toString()), Artist.class);
+        } catch (HttpClientErrorException e) {
+            throw new ArtistNotFound(e);
+        } catch (HttpServerErrorException.ServiceUnavailable e) {
+            throw new ServiceUnavailable(e);
+        }
     }
 }

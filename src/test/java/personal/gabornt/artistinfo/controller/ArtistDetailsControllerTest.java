@@ -81,4 +81,17 @@ public class ArtistDetailsControllerTest {
         ;
     }
 
+    @Test
+    public void getDetailsById_ShouldX_WhenIdIsInvalid() {
+        final UUID testID = UUID.fromString("00000000-0000-0000-0000-000000000000");
+
+        RestAssured.given()
+                .get("/" + testID)
+                .then()
+                .log().all()
+                .statusCode(HttpStatus.NOT_FOUND.value())
+                .body("message", equalTo("Artist not found"))
+        ;
+    }
+
 }

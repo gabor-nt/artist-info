@@ -15,6 +15,7 @@ I picked these, because I am familiar with them and they get the job done
  * I did not set up a nice useragent for the 3pp requests
  * I did not cache bad request responses
  * I did not set up a rate limiter, so the hypothetical high load would reach MusicBrainz and all these requests would not be served.
+ 
 I skipped these parts as they would have only made the service nicer towards the 3pps, but would have needed more effort, better test tools
 
 
